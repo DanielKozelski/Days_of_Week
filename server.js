@@ -1,40 +1,33 @@
 //console.log("Hello world");
+const port = 3000
 
 const express = require('express')
 const app = express()
-const port = 3000
+app.set('view engine', 'ejs')
 
 function get_day_of_week(date){
-    var dateString = ["Sunday, Monday, Tuesday, Wednesday, Thursday, Firday, Saturday "];
-    switch(date.getDay()){
-        case 0:
-            dateString = "Sunday"
-            break;
-        case 1:
-            dateString = "Monday"
-            break;
-        case 2:
-            dateString = "Tuesday"
-            break;
-        case 3:
-            dateString = "Wednesday"
-            break;
-        case 4:
-            dateString = "Thursday"
-            break;
-        case 5:
-            dateString = "Firday"
-            break;
-        case 5:
-            dateString = "Saturday"
-            break;
-    }
-    return dateString;
+    var days_of_week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Firday", "Saturday"];
+    return days_of_week[date.getDay()];
 }
 
 app.get('/today',(req,res) =>{
     var today = new Date();
-    res.send(get_day_of_week(today));
+    //res.send(get_day_of_week(today));
+    res.render("days_of_week",{
+        date: today, 
+        day_of_week: 
+        get_day_of_week(today)
+    });
+})
+
+app.get('/birthday',(req,res) =>{
+    var birthday = new Date(2000, 11, 28);
+    //res.send(get_day_of_week(today));
+    res.render("days_of_week",{
+        date: birthday, 
+        day_of_week: 
+        get_day_of_week(birthday)
+    });
 })
 
 
